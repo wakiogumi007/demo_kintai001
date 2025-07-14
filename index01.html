@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webアプリケーション</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <div id="login-screen" class="screen active">
+            <h2>ログイン</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="loginId">ログインID:</label>
+                    <input type="text" id="loginId" name="loginId" required>
+                    <div class="error-message" id="loginId-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="password">パスワード:</label>
+                    <input type="password" id="password" name="password" required>
+                    <div class="error-message" id="password-error"></div>
+                </div>
+                <button type="submit">ログイン</button>
+                <button type="button" id="createAccountBtn">新規アカウント作成</button>
+            </form>
+        </div>
+
+        <div id="subscription-screen" class="screen">
+            <h2>定期購入</h2>
+            <form id="subscription-form">
+                <div class="form-group">
+                    <label for="subscriptionDate">定期購入日:</label>
+                    <input type="date" id="subscriptionDate" name="subscriptionDate" required>
+                    <div class="error-message" id="subscriptionDate-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="nearestStation">最寄り駅:</label>
+                    <input type="text" id="nearestStation" name="nearestStation" required>
+                    <div class="error-message" id="nearestStation-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="destinationStation">目的駅:</label>
+                    <input type="text" id="destinationStation" name="destinationStation">
+                </div>
+                <div id="route-options">
+                    <div class="route-option">
+                        <div class="form-group">
+                            <label for="transitStation1">経由駅:</label>
+                            <input type="text" id="transitStation1" name="transitStation[]">
+                        </div>
+                        <div class="form-group">
+                            <label for="commuteTime1">通勤時間:</label>
+                            <select id="commuteTime1" name="commuteTime[]" required>
+                                <option value="">選択してください</option>
+                                <option value="15分未満">15分未満</option>
+                                <option value="15分-30分">15分-30分</option>
+                                <option value="30分-1時間">30分-1時間</option>
+                                <option value="1時間以上">1時間以上</option>
+                            </select>
+                            <div class="error-message" id="commuteTime1-error"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="amount1">金額:</label>
+                            <input type="number" id="amount1" name="amount[]" required>
+                            <div class="error-message" id="amount1-error"></div>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" id="addCandidateBtn">候補数追加</button>
+                <button type="submit">送信確認</button>
+            </form>
+        </div>
+
+        <div id="monthly-document-screen" class="screen">
+            <h2>月末書類</h2>
+            <form id="monthly-document-form">
+                <div class="form-group">
+                    <label for="submissionDate">提出日:</label>
+                    <input type="date" id="submissionDate" name="submissionDate" required>
+                    <div class="error-message" id="submissionDate-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="attachmentFile">添付ファイル選択:</label>
+                    <input type="file" id="attachmentFile" name="attachmentFile" required>
+                    <div class="error-message" id="attachmentFile-error"></div>
+                </div>
+                <button type="submit">送信確認</button>
+            </form>
+        </div>
+
+        <div id="address-change-screen" class="screen">
+            <h2>住所変更</h2>
+            <form id="address-change-form">
+                <div class="form-group">
+                    <label for="changeDate">日付:</label>
+                    <input type="date" id="changeDate" name="changeDate" required>
+                    <div class="error-message" id="changeDate-error"></div>
+                </div>
+                <div class="form-group zip-code-group">
+                    <label for="zipCode">郵便番号:</label>
+                    <input type="text" id="zipCode" name="zipCode" required maxlength="8" placeholder="例: 123-4567">
+                    <button type="button" id="searchZipCodeBtn">郵便番号から検索</button>
+                    <div class="error-message" id="zipCode-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="newAddress">新住所:</label>
+                    <input type="text" id="newAddress" name="newAddress" required>
+                    <div class="error-message" id="newAddress-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="addressDetail">番地以降:</label>
+                    <input type="text" id="addressDetail" name="addressDetail">
+                </div>
+                <div class="form-group">
+                    <label for="nearestStationChange">最寄り駅:</label>
+                    <input type="text" id="nearestStationChange" name="nearestStationChange" required>
+                    <div class="error-message" id="nearestStationChange-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="residenceCertificate">住民票転居届:</label>
+                    <select id="residenceCertificate" name="residenceCertificate" required>
+                        <option value="">選択してください</option>
+                        <option value="提出済">提出済</option>
+                        <option value="未提出">未提出</option>
+                    </select>
+                    <div class="error-message" id="residenceCertificate-error"></div>
+                </div>
+                <button type="submit">送信確認</button>
+            </form>
+        </div>
+
+        <div id="confirmation-screen" class="screen">
+            <h2>送信確認</h2>
+            <div id="confirmation-content">
+                </div>
+            <button type="button" id="backToFormBtn">編集に戻る</button>
+            <button type="button" id="submitFinalBtn">最終送信</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
